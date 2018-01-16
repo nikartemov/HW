@@ -1,0 +1,10 @@
+{% load static %}
+{% load staticfiles %}
+{% for u in users %}
+    <li style="list-style: none">
+    {{ u.username }}
+    </li>
+
+    {% empty %}
+    No users
+{% endfor %}

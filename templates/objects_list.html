@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block title %}Flight list{% endblock %}
+{% block body %}
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    {% load staticfiles %}
+    <div class="add-container"><a href="#openModal"><img class="add-img" src="{% static "img/PlusLogoWebBooking2.jpg" %}" alt="image for add new object (plus)"></a></div>
+    <div id="openModal" class="modalDialog">
+        <div>
+            <a href="#close" title="Закрыть" class="close">X</a>
+            <h3>Новый рейс<div id="main_error"></div></h3>
+            <div class="modal-body">
+
+                {{ form.non_field_errors }}
+                <form action="/index/"  id="form1" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {%  for i in form %}
+                    <label style="margin-left: 15%;">{{ i.label }}</label>
+                     <div style="width: 600px; overflow: auto; margin-left: 15%; ">
+                        <div class="form_field_{{ i.label }}"style="float:left;">
+                            {{ i }}
+                        </div>
+                        <div id="error_{{ i.label }}" class="" style="float:left; margin: 0; margin-left: 5%;">
+
+                        </div>
+                     </div>
+                     {% endfor %}
+                    <div class="btn" id="form_add" style="margin-top: 25px;margin-left: 12%; width: 200px; text-align: center;">Добавить Рейс</div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="object-list-container" id="containers_block">
+        {% for flight in flights %}
+            <div class="object-container">
+                <a href="{% url 'flight_url' flight.id %}">
+                    <img class="object-img" src="{% static flight.image_url %}" alt="image for object"><div class="object-info">{{ flight.description }}, {{ flight.cost }}</div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+        {% else %}
+        <div class="site-name">You are not authenticated user
+        <a href="{% url 'login' %}" style="color: black;">Login</a>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block footer %}
+    {% if user.is_authenticated %}
+   <!-- <ul class="pagination">
+         <li><a href="#">1</a></li>
+         <li><a class="active" href="#">2</a></li>
+         <li><a href="#">3</a></li>
+    </ul> --!>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript" src="{% static 'script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'validate.js' %}"></script>
+{% endblock %}

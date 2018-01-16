@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+    {{ form.non_field_errors }}
+           <form action="/login/" method="post" class="sign">
+             {% csrf_token %}
+
+                <fieldset class="account-info">
+                    <div class="sign-legend">Авторизация на портале</div>
+
+                    <label>
+                      <!  Имя пользователя !>
+                        <input type="text" name="login" placeholder="Имя пользователя">
+                    </label>
+                    <label>
+                       <! Пароль !>
+                        <input type="password" name="password" placeholder="Пароль">
+                    </label>
+
+                    <input class="btn" type="submit" name="submit" value="Войти">
+                    <a href="{% url 'signup' %}"><input class="btn" type="button" value="Регистрация"></a>
+                </fieldset>
+            </form>
+{% endblock %}

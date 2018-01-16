@@ -1,0 +1,17 @@
+
+    {{ form.non_field_errors }}
+    <form action="/index/"  id="form1" method="post" enctype="multipart/form-data" onSubmit="return check();">
+    {% csrf_token %}
+        {%  for i in form %}
+        <label style="margin-left: 15%;">{{ i.label }}</label>
+         <div style="width: 600px; overflow: auto; margin-left: 15%; ">
+            <div style="float:left;">
+                {{ i }}
+            </div>
+            <div style="float:left; margin: 0;">
+                {{ i.errors }}
+            </div>
+         </div>
+         {% endfor %}
+        <input class="btn" id="form_add" style="margin-top: 25px;margin-left: 12%; width: 200px;" type="submit" name="submit" value="Добавить Рейс">
+    </form>

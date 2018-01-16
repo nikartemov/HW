@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %}Signup{% endblock %}
+{% block body %}
+{{ form.non_field_errors }}
+ <form action="/signup/" method="post" class="sign">
+                    {% csrf_token %}
+                    <fieldset class="account-info">
+                    <div class="sign-legend">Регистрация на портале</div>
+                    <a href="{% url 'login' %}" class="have-acc">У меня уже есть аккаунт</a>
+                    {%  for i in form %}
+                        {% if i.label == "password" %}
+                     <label>
+                      <!  Имя пользователя !>
+                        <input type="password" name="{{ i.label }}"  placeholder="{{ i.label }}">
+                    </label>
+                        {% elif i.label == "repeat_password"%}
+                    <label>
+                      <!  Имя пользователя !>
+                        <input type="password" name="{{ i.label }}"  placeholder="{{ i.label }}">
+                    </label>
+                        {% else %}
+                    <label>
+                      <!  Имя пользователя !>
+                        <input type="text" name="{{ i.label }}"  placeholder="{{ i.label }}">
+                    </label>
+                        {% endif %}
+                      <div>
+                          {{ i.errors }}
+                      </div>
+
+
+                    {% endfor %}
+
+                    <input class="btn2" type="submit" name="submit" value="Регистрация">
+                    </fieldset>
+
+</form>
+{% endblock %}

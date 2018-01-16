@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="The project for IU5 course 'Web App Dev'">
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jquery.sticky.js' %}">
+</script>
+    {% csrf_token %}
+    </head>
+    <body>
+        <header>
+            <div class="site-name">Wasgen air inc.</div>
+            {% if user.is_authenticated %}
+                <div class="user-menu">
+                    <a href=""><img class="user-avatar" src="{% static "img/avatar_new.png" %}" alt="just user avatar"></a>
+                        <ul>
+                            <li><a style="font-size: 22px;">{{ user.get_username }}</a></li>
+
+                            <li><a>Мои Заказы</a></li>
+                            <li><a href="{% url 'logout' %}" style="text-decoration: none; color: black;">Выход</a></li>
+                        </ul>
+                </div>
+            {% endif %}
+        </header>
+        <div class="wrapper">
+            {% block body %}{% endblock %}
+        </div>
+        <footer>
+            {% block footer %}{% endblock %}
+        </footer>
+    {% block script %}{% endblock %}
+    </body>
+</html>

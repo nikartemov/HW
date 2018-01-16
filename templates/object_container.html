@@ -1,0 +1,8 @@
+{% load staticfiles %}
+{% for flight in flights %}
+<div class="object-container">
+    <a href="{% url 'flight_url' flight.id %}">
+        <img class="object-img" src="{% static flight.image_url %}" alt="image for object"><div class="object-info">{{ flight.description }}, {{ flight.cost }}</div>
+    </a>
+</div>
+{% endfor %}
